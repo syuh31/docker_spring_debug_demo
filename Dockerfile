@@ -14,6 +14,8 @@ FROM openjdk:8-jdk-alpine
 # Why /tmp need?
 # https://stackoverflow.com/questions/30464204/spring-boot-docker-using-volume-tmp
 VOLUME /tmp
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
 ARG DEPENDENCY=/workspace/app/build/libs/dependency
 COPY --from=builder ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=builder ${DEPENDENCY}/META-INF /app/META-INF
